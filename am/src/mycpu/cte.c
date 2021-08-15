@@ -6,11 +6,20 @@ static Context* (*user_handler)(Event, Context*) = NULL;
 Context* __am_irq_handle(Context *c) {
   if (user_handler) {
     Event ev = {0};
+    // printf("syscall code: %d\n", c->GPR1);
+    // printf("mcause:  %x\n", c->cause);
+    // printf("mstatus: %x\n", c->status);
+    // printf("mepc:    %x\n", c->epc);
     switch (c->cause) {
+      case TrapMachineEnvCall: 
+        c -> epc += 4;
+        // ev.event = 
+        break;
       default: ev.event = EVENT_ERROR; break;
     }
 
     c = user_handler(ev, c);
+
     assert(c != NULL);
   }
 
@@ -30,6 +39,7 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 }
 
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
+  // Context *c = (Context*)kstack.end - 1;
   return NULL;
 }
 
