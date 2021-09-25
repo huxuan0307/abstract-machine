@@ -15,7 +15,8 @@
 # error unsupported ISA __ISA__
 #endif
 
-# define SERIAL_PORT  0xa10003f8
+# define SERIAL_PORT  0x100003f8
+// # define SERIAL_PORT  0xa10003f8
 # define KBD_ADDR     0xa1000060
 # define RTC_ADDR     0xa1000048
 # define VGACTL_ADDR  0xa1000100

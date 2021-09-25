@@ -1,6 +1,8 @@
 #ifndef ARCH_H__
 #define ARCH_H__
 
+#define Interrupt              0x8000000000000000
+#define InterruptTimer         (Interrupt | 7)
 #define TrapUserEnvCall        8
 #define TrapSupervisorEnvCall  9
 #define TrapMachineEnvCall     11

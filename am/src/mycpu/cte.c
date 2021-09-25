@@ -11,10 +11,19 @@ Context* __am_irq_handle(Context *c) {
     // printf("mstatus: %x\n", c->status);
     // printf("mepc:    %x\n", c->epc);
     switch (c->cause) {
-      case TrapMachineEnvCall: 
-        c -> epc += 4;
-        // ev.event = 
+      case InterruptTimer:
+        ev.event = EVENT_IRQ_TIMER;
         break;
+      case TrapMachineEnvCall: 
+        if (c->GPR1 == -1) {
+          ev.event = EVENT_YIELD;
+          c -> epc += 4;
+        }
+        else {
+          ev.event = EVENT_SYSCALL;
+        }
+        break;
+      
       default: ev.event = EVENT_ERROR; break;
     }
 
